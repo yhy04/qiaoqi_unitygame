@@ -1,0 +1,97 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\22444\\qiaoqi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|c:\\users\\22444\\qiaoqi\\assets\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|solutionrelative:assets\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|C:\\Users\\22444\\qiaoqi\\assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|C:\\Users\\22444\\qiaoqi\\assets\\scriptsscene\\start.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0FF6776C-0F92-F9CB-C84E-C6C01397CDE1}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptsscene\\start.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\22444\\qiaoqi\\Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LineTheBoard.cs",
+              "DocumentMoniker": "C:\\Users\\22444\\qiaoqi\\Assets\\LineTheBoard.cs",
+              "RelativeDocumentMoniker": "Assets\\LineTheBoard.cs",
+              "ToolTip": "C:\\Users\\22444\\qiaoqi\\Assets\\LineTheBoard.cs",
+              "RelativeToolTip": "Assets\\LineTheBoard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T10:25:55.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "start.cs",
+              "DocumentMoniker": "C:\\Users\\22444\\qiaoqi\\Assets\\ScriptsSCene\\start.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsSCene\\start.cs",
+              "ToolTip": "C:\\Users\\22444\\qiaoqi\\Assets\\ScriptsSCene\\start.cs",
+              "RelativeToolTip": "Assets\\ScriptsSCene\\start.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvxEAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T16:08:12.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UnityOnCollisionEnter2DMessageListener.cs",
+              "DocumentMoniker": "C:\\Users\\22444\\qiaoqi\\Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs",
+              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs",
+              "ToolTip": "C:\\Users\\22444\\qiaoqi\\Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs",
+              "RelativeToolTip": "Library\\PackageCache\\com.unity.visualscripting@1.8.0\\Runtime\\VisualScripting.Core\\Listeners\\MonoBehaviour\\UnityOnCollisionEnter2DMessageListener.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T16:06:22.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlaceChessman.cs",
+              "DocumentMoniker": "C:\\Users\\22444\\qiaoqi\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ToolTip": "C:\\Users\\22444\\qiaoqi\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAABYwAsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T19:20:22.407Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
