@@ -120,7 +120,7 @@ public class ChessBoard : MonoBehaviour
         return (int)Math.Floor(result);
     }
 
-    private void HighlightSurroundingPieces(int n, int x, int z)
+    private void HighlightSurroundingPieces(int n, int x, int z)    //标记棋子
     {
         int index = 0;
         for (int dx = -2; dx <= 2; dx++)
@@ -150,7 +150,7 @@ public class ChessBoard : MonoBehaviour
             }
         }
     }
-    private void ResetHighlighting()
+    private void ResetHighlighting()    //恢复去除标记
     {
         foreach (GameObject piece in highlightedPieces)
         {

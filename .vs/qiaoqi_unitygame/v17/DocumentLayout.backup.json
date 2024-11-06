@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Unity Projects\\qiaoqi_unitygame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|D:\\Unity Projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 153,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LineTheBoard.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAADwvyEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T10:46:43.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlaceChessman.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwKcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T10:25:13.09Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
