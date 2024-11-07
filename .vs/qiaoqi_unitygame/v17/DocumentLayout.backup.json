@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "D:\\Unity Projects\\qiaoqi_unitygame\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|D:\\Unity Projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\placechessman.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|D:\\Unity Projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
               "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
               "RelativeToolTip": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAADwvyEAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T10:46:43.297Z",
               "EditorCaption": ""
@@ -57,7 +57,7 @@
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAuwKcAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAADgv08AAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T10:25:13.09Z",
               "EditorCaption": ""

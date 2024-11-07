@@ -5,76 +5,59 @@ using System.Reflection;
 using UnityEngine;
 public class ChessBoard : MonoBehaviour
 {
-    public LayerMask boardLayer; // 棋盘层的LayerMask
-    public GameObject piecePrefab1; // 棋子的Prefab
-    public GameObject piecePrefab2; // 棋子的Prefab
-    public GameObject bridgePrefab;
-    public float boardSize; // 棋盘大小
-    public float cellSize; // 单元格大小
-    public int cellNumber;
 
-    public Color highlightColor = Color.yellow; // 突出显示的颜色
-    private Color originalColor; // 原始颜色
-    private GameObject lastPlacedPiece; // 最后放置的棋子
-
-    private bool[,] occupiedPositions; // 记录占用情况
-    private bool round;
-
-    private bool canClickBoard = true; // 控制是否允许点击棋盘
-    private GameObject[] highlightedPieces; // 存储被标亮的棋子
-
+    public GridDrawer _;
+   
     void Start()
-    {
-        // 初始化占用位置数组
-        occupiedPositions = new bool[cellNumber, cellNumber ];
-        round = true;
-        highlightedPieces = new GameObject[cellNumber ];
+    {        
     }
     void Update()
     {
-        
-        if (canClickBoard && Input.GetMouseButtonDown(0))
+        if (_.canClickBoard && Input.GetMouseButtonDown(0))
             {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            //if (Physics.Raycast(ray, out hit))
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, boardLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _.boardLayer))
                 {
                 // 计算点击位置在棋盘上的坐标
                 Vector3 hitPoint = hit.point;
+                
                 int x = ToIndex(hitPoint.x);
                 int z = ToIndex(hitPoint.z);
 
                 // 确保点击在棋盘范围内
-                if (hitPoint.x >= -boardSize && hitPoint.x < boardSize && hitPoint.z >= -boardSize && hitPoint.z < boardSize)
+                if (x >= -_.width/2 && x < _.width/2 && z >= -_.height/2 && z < _.height/2)
                 {
                     // 实例化棋子
-                    if (!occupiedPositions[x + cellNumber / 2, z + cellNumber / 2])
+                    if (!_.placedPieces[x + _.width / 2, z + _.height / 2])
                     {
                         GameObject newPiece;
-                        occupiedPositions[x + cellNumber / 2, z + cellNumber / 2] = true;
-                        Vector3 piecePosition = new Vector3((x + 0.5f) * cellSize, 3.60f, (z + 0.5f) * cellSize);
-                        if (round)
+                        Vector3 piecePosition = new Vector3((x + 0.5f) * _.cellSize, 0.0f, (z + 0.5f) * _.cellSize);
+                        if (_.round)
                         {
-                            newPiece = Instantiate(piecePrefab1, piecePosition, Quaternion.identity); 
-                            newPiece.name = $"Piece1_{x}_{z}";
-                            HighlightSurroundingPieces(1, x, z);
+                            newPiece = Instantiate(_.piecePrefab1, piecePosition, Quaternion.identity); 
+                            newPiece.name = $"Piece1";
+                            
                         }
                         else
                         {
-                            newPiece = Instantiate(piecePrefab2, piecePosition, Quaternion.identity);
-                            newPiece.name = $"Piece2_{x}_{z}";
-                            HighlightSurroundingPieces(2, x, z);
+                            newPiece = Instantiate(_.piecePrefab2, piecePosition, Quaternion.identity);
+                            newPiece.name = $"Piece2";
+                            //HighlightSurroundingPieces(newPiece, x + _.width / 2, z + _.height / 2);
                         }
-                        lastPlacedPiece = newPiece;
-                        round = !round;
-                        
+                        newPiece.transform.parent=this.transform ;
+                        _.placedPieces[x + _.width / 2, z + _.height / 2] = newPiece;
+                        _.indexX = x + _.width / 2;
+                        _.indexZ = z + _.height / 2;
+                        _.lastPlacedPiece = newPiece;
+                        _.round = !_.round;
+                        HighlightSurroundingPieces(newPiece, x + _.width / 2, z + _.height / 2);
                     }
                 }
             }
         }
-        else if (!canClickBoard && Input.GetMouseButtonDown(0)) // 只允许在 canClickBoard 为 false 时点击标亮的棋子
+        else if (!_.canClickBoard && Input.GetMouseButtonDown(0)) // 只允许在 canClickBoard 为 false 时点击标亮的棋子
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -85,42 +68,49 @@ public class ChessBoard : MonoBehaviour
                 
                 if (hit.collider.CompareTag("HighlightedChessPiece"))
                 {
-                    // 执行点击后的操作
-                    Debug.Log("标亮的棋子被点击: " + hit.collider.gameObject.name);
+                    GameObject clickedObject = hit.collider.gameObject; // 获取点击的物体
+
+                    for (int x = 0; x < _.width; x++)
+                    {
+                        for (int z = 0; z < _.height; z++)
+                        {
+                            if (_.placedPieces[x, z] == clickedObject)
+                            {
+                                _.pieceConnect[_.indexX, _.indexZ, 0] = x - _.indexX;
+                                _.pieceConnect[_.indexX, _.indexZ, 1] = z - _.indexZ;
+                            }
+                        }
+                    }
+
 
                     Vector3 selectedPiecePosition = hit.collider.transform.position;
-
-                    Vector3 bridgePosition = (selectedPiecePosition + lastPlacedPiece.transform.position) / 2 + 
+                    Vector3 bridgePosition = (selectedPiecePosition + _.lastPlacedPiece.transform.position) / 2 + 
                         new Vector3(0 , 1f, 0 );
 
                     // 计算旋转，使桥梁指向两个棋子
-                    Quaternion bridgeRotation = Quaternion.LookRotation(selectedPiecePosition - lastPlacedPiece.transform.position);
+                    Quaternion bridgeRotation = Quaternion.LookRotation(selectedPiecePosition - _.lastPlacedPiece.transform.position);
 
                     // 实例化桥梁模型
-                    GameObject bridge = Instantiate(bridgePrefab, bridgePosition, bridgeRotation * Quaternion.Euler(90, 0, 0));
-
+                    GameObject bridge = Instantiate(_.bridgePrefab, bridgePosition, bridgeRotation * Quaternion.Euler(90, 0, 0));
 
                     // 恢复棋盘点击
                     ResetHighlighting();
-                    canClickBoard = true;
+                    _.canClickBoard = true;
                 }
             }
         }
     }
     private int ToIndex(float number)
     {
-        // 处理负数情况
         if (number < 0)
         {
-            return (int)(number / cellSize) - 1;
+            return (int)(number / _.cellSize) - 1;
         }
-
-        // 计算结果并向下取整
-        double result = number / cellSize;
+        double result = number / _.cellSize;
         return (int)Math.Floor(result);
     }
 
-    private void HighlightSurroundingPieces(int n, int x, int z)    //标记棋子
+    private void HighlightSurroundingPieces(GameObject newpiece, int x, int z)    //标记棋子
     {
         int index = 0;
         for (int dx = -2; dx <= 2; dx++)
@@ -132,19 +122,22 @@ public class ChessBoard : MonoBehaviour
                 int newZ = z + dz;
 
                 // 确保在棋盘范围内
-                if (newX >= -cellNumber/2 && newX < cellNumber / 2 && newZ >= -cellNumber / 2 && newZ < cellNumber / 2)
+                if (newX >= 0 && newX < _.width && newZ >= 0 && newZ < _.height)
                 {
                     // 突出显示周围的棋子
-                    GameObject piece = GetPieceAt(n, newX, newZ);
-                    if (piece != null)
+                    GameObject piece = _.placedPieces[newX,newZ];
+                    if (piece != null && piece.name == newpiece.name)
                     {
-                        // 保存原始颜色并设置为突出显示颜色
-                        Renderer renderer = piece.GetComponent<Renderer>();
-                        originalColor = renderer.material.color; // 保存原始颜色
-                        renderer.material.color = highlightColor; // 设置为突出显示颜色
-                        piece.tag = "HighlightedChessPiece";
-                        highlightedPieces[index++] = piece;
-                        canClickBoard = false;
+                        if (notBlock(x, z, newX, newZ))
+                        {
+                            // 保存原始颜色并设置为突出显示颜色
+                            Renderer renderer = piece.GetComponent<Renderer>();
+                            _.originalColor = renderer.material.color; // 保存原始颜色
+                            renderer.material.color = _.highlightColor; // 设置为突出显示颜色
+                            piece.tag = "HighlightedChessPiece";
+                            _.highlightedPieces[index++] = piece;
+                            _.canClickBoard = false;
+                        }
                     }
                 }
             }
@@ -152,23 +145,108 @@ public class ChessBoard : MonoBehaviour
     }
     private void ResetHighlighting()    //恢复去除标记
     {
-        foreach (GameObject piece in highlightedPieces)
+        foreach (GameObject piece in _.highlightedPieces)
         {
             if (piece != null)
             {
                 Renderer renderer = piece.GetComponent<Renderer>();
-                renderer.material.color = originalColor; // 恢复原始颜色
+                renderer.material.color = _.originalColor; // 恢复原始颜色
                 piece.tag = "Untagged"; // 清除特殊Tag
             }
         }
 
         // 清空已标亮的棋子数组
-        highlightedPieces = new GameObject[cellNumber];
+        _.highlightedPieces = new GameObject[8];
     }
-    private GameObject GetPieceAt(int nd, int x, int z)
-    {
-        // 根据位置返回棋子（如果有），可以使用标签或名称来识别
-        return GameObject.Find($"Piece{nd}_{x}_{z}"); // 假设棋子命名为 "Piece_x_z"
+
+    private bool notBlock(int x,int z,int newX,int newZ) {
+        int[][] point = new int[][]
+        {
+            new int[] { -1, 0 },
+            new int[] { -1, 1 },
+            new int[] { -1, 2 },
+            new int[] { 0, 1 },
+            new int[] { 0, 2 },
+            new int[] { 0, 3 },
+            new int[] { 1, -1 },
+            new int[] { 1, 0 },
+            new int[] { 1, 1 },
+            new int[] { 2, 0 },
+            new int[] { 2, 1 },
+            new int[] { 2, 2 }
+        };
+        int[][,] array = new int[12][,]
+        {
+            new int[,] { { 2, 1 } },
+            new int[,] { { 2, -1 } },
+            new int[,] { { 2, -1 } },
+            new int[,] { { 1, -2 }, { 2, 1 }, { 2, -1 } },
+            new int[,] { { 1, -2 },{ 2, -1 } },
+            new int[,] { { 1, -2 } },
+            new int[,] { { -1, 2 } },
+            new int[,] { { -1, 2 },{ -2, 1 } },
+            new int[,] { { -1, 2 }, { -2, -1 }, { -2, 1 } },
+            new int[,] { { -2, 1 } },
+            new int[,] { { -2, 1 } },
+            new int[,] { { -2, -1 } }
+        };
+        int[] funcarray = { 0, 0, 0, 0 };
+        if (newX - x == 1 && newZ - z == 2)
+        {
+             funcarray= new int[4] { 1, 0, 0, 1 };
+        }
+        else if (newX - x == 1 && newZ - z == -2){
+            funcarray = new int[4] { 1, 0, 0, -1 };
+        }
+        else if (newX - x == -1 && newZ - z == 2)
+        {
+            funcarray = new int[4] { -1, 0, 0, 1 };
+        }
+        else if (newX - x == -1 && newZ - z == -2)
+        {
+            funcarray = new int[4] { -1, 0, 0, -1 };
+        }
+        else if (newX - x == 2 && newZ - z == 1)
+        {
+            funcarray = new int[4] { 0, 1, 1, 0 };
+        }
+        else if (newX - x == 2 && newZ - z == -1)
+        {
+            funcarray = new int[4] { 0, -1, 1, 0 };
+        }
+        else if (newX - x == -2 && newZ - z == 1)
+        {
+            funcarray = new int[4] { 0, 1, -1, 0 };
+        }
+        else if (newX - x == -2 && newZ - z == -1)
+        {
+            funcarray = new int[4] { 0, -1, -1, 0 };
+        }
+        for (int i = 0; i < point.GetLength(0); i++)
+        {
+            if (!checkblock(point[i], array[i], x, z, funcarray)) return false;
+        }
+        return true; }
+
+    private bool checkblock(int[] first, int[,] second,int x,int z, int[] funcarray) {
+        Debug.Log(funcarray[0]);
+        Debug.Log(funcarray[1]);
+        Debug.Log(funcarray[2]);
+        Debug.Log(funcarray[3]);
+        for (int i = 0; i < second.GetLength(0); i++)
+        {
+            int a, b, c, d;
+            a = first[0] * funcarray[0] + first[1] * funcarray[2];
+            b = first[0] * funcarray[1] + first[1] * funcarray[3];
+            if (x + a >= 0 && x + a < _.width && z + b >= 0 && z + b < _.height)
+            {
+                c = second[i, 0] * funcarray[0] + second[i, 1] * funcarray[2];
+                d = second[i, 0] * funcarray[1] + second[i, 1] * funcarray[3];
+                if (_.pieceConnect[x + a, z + b, 0] == c &&
+                    _.pieceConnect[x + a, z + b, 1] == d) return false;
+            }
+        }
+        return true;
     }
 }
 

@@ -229,16 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64b079f1183e04387408af9bb099f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  piecePrefab1: {fileID: 1680197415379901352, guid: b56702c933f415f479c964b133530780, type: 3}
-  piecePrefab2: {fileID: 570002282704504539, guid: 4d967d40a7a022f4bb53ad90a5d2406b, type: 3}
-  bridgePrefab: {fileID: 4178452097353345784, guid: 5417c0a2056101544909c4f7ca128932, type: 3}
-  boardSize: 23.5
-  cellSize: 5.875
-  cellNumber: 8
-  highlightColor: {r: 0.037428938, g: 0.45911938, b: 0.027431572, a: 1}
+  _: {fileID: 0}
 --- !u!1001 &921818135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,6 +455,18 @@ MonoBehaviour:
   width: 10
   height: 10
   cellSize: 10
+  boardLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  piecePrefab1: {fileID: 1680197415379901352, guid: b56702c933f415f479c964b133530780, type: 3}
+  piecePrefab2: {fileID: 570002282704504539, guid: 4d967d40a7a022f4bb53ad90a5d2406b, type: 3}
+  bridgePrefab: {fileID: 4178452097353345784, guid: 5417c0a2056101544909c4f7ca128932, type: 3}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  lastPlacedPiece: {fileID: 0}
+  round: 1
+  canClickBoard: 1
+  highlightedPieces: []
 --- !u!4 &1651258217
 Transform:
   m_ObjectHideFlags: 0
@@ -491,16 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64b079f1183e04387408af9bb099f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  piecePrefab1: {fileID: 1680197415379901352, guid: b56702c933f415f479c964b133530780, type: 3}
-  piecePrefab2: {fileID: 570002282704504539, guid: 4d967d40a7a022f4bb53ad90a5d2406b, type: 3}
-  bridgePrefab: {fileID: 4178452097353345784, guid: 5417c0a2056101544909c4f7ca128932, type: 3}
-  boardSize: 20
-  cellSize: 10
-  cellNumber: 10
-  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _: {fileID: 1651258216}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
