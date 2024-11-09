@@ -9,6 +9,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|D:\\Unity Projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\linetheboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,6 +37,32 @@
               "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
             },
             {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "movement.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\movement.cs",
+              "RelativeDocumentMoniker": "Assets\\movement.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\movement.cs",
+              "RelativeToolTip": "Assets\\movement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-09T12:27:18.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlaceChessman.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAIwGEAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T10:25:13.09Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
@@ -44,22 +74,9 @@
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
               "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
               "RelativeToolTip": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAADgvx0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T10:46:43.297Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlaceChessman.cs",
-              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAANoAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T10:25:13.09Z",
               "EditorCaption": ""
             }
           ]

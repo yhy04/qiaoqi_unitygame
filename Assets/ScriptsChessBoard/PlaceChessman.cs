@@ -9,7 +9,16 @@ public class ChessBoard : MonoBehaviour
     public GridDrawer _;
    
     void Start()
-    {        
+    {
+        for (int i = 0; i < _.width; i++) {
+            Union1(0, i * _.height);
+            Union1(_.height - 1, (i + 1) * _.height - 1);
+        }
+        for (int i = 0; i < _.height; i++)
+        {
+            Union2(0, i);
+            Union2((_.width - 1) * _.height, (_.width - 1) * _.height + i);
+        }
     }
     void Update()
     {
@@ -78,6 +87,16 @@ public class ChessBoard : MonoBehaviour
                             {
                                 _.pieceConnect[_.indexX, _.indexZ, 0] = x - _.indexX;
                                 _.pieceConnect[_.indexX, _.indexZ, 1] = z - _.indexZ;
+                                if (_.round)
+                                {
+                                    Union1(x * _.height + z, _.indexX * _.height + _.indexZ);
+                                    if (Connected1(0, _.height - 1)) Debug.Log("win1");
+                                }
+                                else 
+                                { 
+                                    Union2(x * _.height + z, _.indexX * _.height + _.indexZ);
+                                    if (Connected2(0, (_.width - 1) * _.height)) Debug.Log("win2");
+                                }
                             }
                         }
                     }
@@ -247,6 +266,82 @@ public class ChessBoard : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private void Union1(int x, int y)
+    {
+        int rootX = Find1(x);
+        int rootY = Find1(y);
+
+        if (rootX != rootY)
+        {
+            // 按秩合并
+            if (_.rank1[rootX] > _.rank1[rootY])
+            {
+                _.parent1[rootY] = rootX;
+            }
+            else if (_.rank1[rootX] < _.rank1[rootY])
+            {
+                _.parent1[rootX] = rootY;
+            }
+            else
+            {
+                _.parent1[rootY] = rootX;
+                _.rank1[rootX]++;
+            }
+        }
+    }
+
+    private void Union2(int x, int y)
+    {
+        int rootX = Find2(x);
+        int rootY = Find2(y);
+
+        if (rootX != rootY)
+        {
+            // 按秩合并
+            if (_.rank2[rootX] > _.rank2[rootY])
+            {
+                _.parent2[rootY] = rootX;
+            }
+            else if (_.rank2[rootX] < _.rank2[rootY])
+            {
+                _.parent2[rootX] = rootY;
+            }
+            else
+            {
+                _.parent2[rootY] = rootX;
+                _.rank2[rootX]++;
+            }
+        }
+    }
+
+    private int Find1(int x)
+    {
+        if (_.parent1[x] != x)
+        {
+            _.parent1[x] = Find1(_.parent1[x]);
+        }
+        return _.parent1[x];
+    }
+
+    private int Find2(int x)
+    {
+        if (_.parent2[x] != x)
+        {
+            _.parent2[x] = Find2(_.parent2[x]);
+        }
+        return _.parent2[x];
+    }
+
+    private bool Connected1(int x, int y)
+    {
+        return Find1(x) == Find1(y);
+    }
+
+    private bool Connected2(int x, int y)
+    {
+        return Find2(x) == Find2(y);
     }
 }
 

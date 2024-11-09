@@ -24,6 +24,12 @@ public class GridDrawer : MonoBehaviour
     public bool canClickBoard = true; // 控制是否允许点击棋盘
     public GameObject[] highlightedPieces; // 存储被标亮的棋子
 
+    public int[] parent1;
+    public int[] rank1;
+    public int[] parent2;
+    public int[] rank2;
+
+
     private void Start()
     {
         Create();
@@ -37,6 +43,10 @@ public class GridDrawer : MonoBehaviour
         placedPieces = new GameObject[width, height];
         highlightedPieces = new GameObject[8];
         pieceConnect = new int[width, height, 2];
+        parent1 = new int[width * height];
+        rank1 = new int[width * height];
+        parent2 = new int[width * height];
+        rank2 = new int[width * height];
         int ParentLayer = gameObject.layer;
         for (int x = 0; x < width; x++)
         {
@@ -53,6 +63,10 @@ public class GridDrawer : MonoBehaviour
                 cellObjects[x, z] = cell;
                 pieceConnect[x, z, 0] = 0;
                 pieceConnect[x, z, 1] = 0;
+                parent1[x * height + z] = x * height + z;
+                rank1[x * height + z] = 0;
+                parent2[x * height + z] = x * height + z;
+                rank2[x * height + z] = 0;
             }
         }
 

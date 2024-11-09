@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -422,6 +423,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0484823d48ba23a4ca82d7b9da61ec36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  zoomSpeed: 500
+  minZoom: 40
+  maxZoom: 100
 --- !u!1 &1651258215
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,9 +481,15 @@ MonoBehaviour:
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   lastPlacedPiece: {fileID: 0}
+  indexX: 0
+  indexZ: 0
   round: 1
   canClickBoard: 1
   highlightedPieces: []
+  parent1: 
+  rank1: 
+  parent2: 
+  rank2: 
 --- !u!4 &1651258217
 Transform:
   m_ObjectHideFlags: 0
