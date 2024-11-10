@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,27 +38,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LineTheBoard.cs",
-              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "RelativeToolTip": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T10:46:43.297Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PlaceChessman.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "RelativeToolTip": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAIwNoAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0BAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T10:25:13.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LineTheBoard.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwDIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T10:46:43.297Z",
               "EditorCaption": ""
             }
           ]

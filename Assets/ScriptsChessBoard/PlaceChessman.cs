@@ -13,12 +13,20 @@ public class ChessBoard : MonoBehaviour
         for (int i = 0; i < _.width; i++) {
             Union1(0, i * _.height);
             Union1(_.height - 1, (i + 1) * _.height - 1);
+            _.cellObjects[i, 0].GetComponent<Renderer>().material.color = Color.red;
+            _.cellObjects[i, _.height - 1].GetComponent<Renderer>().material.color = Color.red;
         }
         for (int i = 0; i < _.height; i++)
         {
             Union2(0, i);
             Union2((_.width - 1) * _.height, (_.width - 1) * _.height + i);
+            _.cellObjects[0, i].GetComponent<Renderer>().material.color = Color.blue;
+            _.cellObjects[_.width - 1, i].GetComponent<Renderer>().material.color = Color.blue;
         }
+        _.cellObjects[0, 0].GetComponent<Renderer>().material.color = Color.white;
+        _.cellObjects[0, _.height - 1].GetComponent<Renderer>().material.color = Color.white;
+        _.cellObjects[_.width - 1, 0].GetComponent<Renderer>().material.color = Color.white;
+        _.cellObjects[_.width - 1, _.height - 1].GetComponent<Renderer>().material.color = Color.white; 
     }
     void Update()
     {
@@ -47,13 +55,13 @@ public class ChessBoard : MonoBehaviour
                         {
                             newPiece = Instantiate(_.piecePrefab1, piecePosition, Quaternion.identity); 
                             newPiece.name = $"Piece1";
-                            
+                            _.cellObjects[x + _.width / 2, z + _.height / 2].GetComponent<Renderer>().material.color = Color.red;
                         }
                         else
                         {
                             newPiece = Instantiate(_.piecePrefab2, piecePosition, Quaternion.identity);
                             newPiece.name = $"Piece2";
-                            //HighlightSurroundingPieces(newPiece, x + _.width / 2, z + _.height / 2);
+                            _.cellObjects[x + _.width / 2, z + _.height / 2].GetComponent<Renderer>().material.color = Color.blue;
                         }
                         newPiece.transform.parent=this.transform ;
                         _.placedPieces[x + _.width / 2, z + _.height / 2] = newPiece;
@@ -87,7 +95,7 @@ public class ChessBoard : MonoBehaviour
                             {
                                 _.pieceConnect[_.indexX, _.indexZ, 0] = x - _.indexX;
                                 _.pieceConnect[_.indexX, _.indexZ, 1] = z - _.indexZ;
-                                if (_.round)
+                                if (!_.round)
                                 {
                                     Union1(x * _.height + z, _.indexX * _.height + _.indexZ);
                                     if (Connected1(0, _.height - 1)) Debug.Log("win1");
