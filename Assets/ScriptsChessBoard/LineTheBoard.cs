@@ -4,32 +4,25 @@ using UnityEngine;
 
 public class GridDrawer : MonoBehaviour
 {
-    public int width = 10;
-    public int height = 10;
-    public float cellSize = 10; 
-    private bool gridCreated = false;
-    public LayerMask boardLayer; 
-    public GameObject[,] cellObjects;
-    public GameObject[,] placedPieces;
-    public GameObject piecePrefab1;
-    public GameObject piecePrefab2;
-    public GameObject bridgePrefab;
-    public int[,,] pieceConnect;
-
-    public Color highlightColor = Color.yellow;
-    public Color originalColor;
-    public GameObject lastPlacedPiece;
-    public int indexX,indexZ;
+    public int width = 10;               //棋盘宽
+    public int height = 10;              //棋盘长 
+    public float cellSize = 10;          //每个棋格大小
+    private bool gridCreated = false;    //判断是否创建了棋盘
+    public LayerMask boardLayer;         //棋盘所处的层
+    public GameObject[,] cellObjects;    //对每个棋格存储
+    public GameObject[,] placedPieces;   //对每个已有的棋子存储
+    public GameObject[,] placedBridge;   //记录桥
+    public GameObject piecePrefab1;      //玩家1的棋子模型
+    public GameObject piecePrefab2;      //玩家2的棋子模型
+    public GameObject bridgePrefab;      //桥模型
+    //public int[,,] pieceConnect;       //棋子相连情况记录
+    public GameObject lastPlacedPiece;   //最后放置的棋子记录
+    public int indexX,indexZ;            //最后放置的棋子在placedPieces中位置
     public bool round = true;
-    public bool canClickBoard = true; // 控制是否允许点击棋盘
-    public GameObject[] highlightedPieces; // 存储被标亮的棋子
-
     public int[] parent1;
     public int[] rank1;
     public int[] parent2;
     public int[] rank2;
-
-
     private void Start()
     {
         Create();
@@ -41,8 +34,7 @@ public class GridDrawer : MonoBehaviour
         // 初始化二维数组
         cellObjects = new GameObject[width, height];
         placedPieces = new GameObject[width, height];
-        highlightedPieces = new GameObject[8];
-        pieceConnect = new int[width, height, 2];
+        placedBridge = new GameObject[width, height];
         parent1 = new int[width * height];
         rank1 = new int[width * height];
         parent2 = new int[width * height];
@@ -61,15 +53,12 @@ public class GridDrawer : MonoBehaviour
                 cell.transform.parent = this.transform;
                 cell.layer = ParentLayer;
                 cellObjects[x, z] = cell;
-                pieceConnect[x, z, 0] = 0;
-                pieceConnect[x, z, 1] = 0;
                 parent1[x * height + z] = x * height + z;
                 rank1[x * height + z] = 0;
                 parent2[x * height + z] = x * height + z;
                 rank2[x * height + z] = 0;
             }
         }
-
         gridCreated = true; // 标记网格已创建
     }
 
@@ -82,7 +71,6 @@ public class GridDrawer : MonoBehaviour
         }
         return null; 
     }
-
     public GameObject GetPieceObject(int x, int z)
     {
         if (x >= 0 && x < width && z >= 0 && z < height)
@@ -91,11 +79,9 @@ public class GridDrawer : MonoBehaviour
         }
         return null;
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white; // 设置网格线的颜色
-
         // 绘制水平线
         for (int y = 0; y <= height; y++)
         {
@@ -103,7 +89,6 @@ public class GridDrawer : MonoBehaviour
             Vector3 end = new Vector3(width * cellSize / 2, 0, y * cellSize - height * cellSize / 2);
             Gizmos.DrawLine(start, end);
         }
-
         // 绘制垂直线
         for (int x = 0; x <= width; x++)
         {

@@ -6,10 +6,17 @@ using UnityEngine.SceneManagement;
 public class start : MonoBehaviour
 {
 
-    public void StartGame()
+    public void StartGame1()
     {
-        // 加载游戏场景，假设游戏场景的名称为 "GameScene"
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(1);
+    }
+    public void StartGame2()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void StartGame3()
+    {
+        SceneManager.LoadScene(3);
     }
 
     // 退出游戏的按钮
