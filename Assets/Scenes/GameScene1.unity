@@ -351,8 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279fef1415cdefb468d97b829225735f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 24
-  height: 24
+  width: 10
+  height: 10
   cellSize: 10
   boardLayer:
     serializedVersion: 2
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64b079f1183e04387408af9bb099f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _: {fileID: 1651258216}
+  gridDrawer: {fileID: 1651258216}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

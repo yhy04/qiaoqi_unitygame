@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class GridDrawer : MonoBehaviour
 {
-    public int width = 10;               //ÆåÅÌ¿í
-    public int height = 10;              //ÆåÅÌ³¤ 
-    public float cellSize = 10;          //Ã¿¸öÆå¸ñ´óÐ¡
-    private bool gridCreated = false;    //ÅÐ¶ÏÊÇ·ñ´´½¨ÁËÆåÅÌ
-    public LayerMask boardLayer;         //ÆåÅÌËù´¦µÄ²ã
-    public GameObject[,] cellObjects;    //¶ÔÃ¿¸öÆå¸ñ´æ´¢
-    public GameObject[,] placedPieces;   //¶ÔÃ¿¸öÒÑÓÐµÄÆå×Ó´æ´¢
-    public GameObject[,] placedBridge;   //¼ÇÂ¼ÇÅ
-    public GameObject piecePrefab1;      //Íæ¼Ò1µÄÆå×ÓÄ£ÐÍ
-    public GameObject piecePrefab2;      //Íæ¼Ò2µÄÆå×ÓÄ£ÐÍ
-    public GameObject bridgePrefab;      //ÇÅÄ£ÐÍ
-    //public int[,,] pieceConnect;       //Æå×ÓÏàÁ¬Çé¿ö¼ÇÂ¼
-    public GameObject lastPlacedPiece;   //×îºó·ÅÖÃµÄÆå×Ó¼ÇÂ¼
-    public int indexX,indexZ;            //×îºó·ÅÖÃµÄÆå×ÓÔÚplacedPiecesÖÐÎ»ÖÃ
+    public int width = 10;               //ï¿½ï¿½ï¿½Ì¿ï¿½
+    public int height = 10;              //ï¿½ï¿½ï¿½Ì³ï¿½ 
+    public float cellSize = 10;          //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+    private bool gridCreated = false;    //ï¿½Ð¶ï¿½ï¿½Ç·ñ´´½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public LayerMask boardLayer;         //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½
+    public GameObject[,] cellObjects;    //ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢
+    public GameObject[,] placedPieces;   //ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ó´æ´¢
+    public GameObject[,] placedBridge;   //ï¿½ï¿½Â¼ï¿½ï¿½
+    public GameObject piecePrefab1;      //ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+    public GameObject piecePrefab2;      //ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+    public GameObject bridgePrefab;      //ï¿½ï¿½Ä£ï¿½ï¿½
+    //public int[,,] pieceConnect;       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
+    public GameObject lastPlacedPiece;   //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ó¼ï¿½Â¼
+    public int indexX,indexZ;            //ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½placedPiecesï¿½ï¿½Î»ï¿½ï¿½
     public bool round = true;
     public int[] parent1;
     public int[] rank1;
@@ -30,8 +30,8 @@ public class GridDrawer : MonoBehaviour
 
     private void Create()
     {
-        if (gridCreated) return; // Èç¹ûÍø¸ñÒÑ¾­´´½¨£¬Ö±½Ó·µ»Ø
-        // ³õÊ¼»¯¶þÎ¬Êý×é
+        if (gridCreated) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
+        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
         cellObjects = new GameObject[width, height];
         placedPieces = new GameObject[width, height];
         placedBridge = new GameObject[width, height];
@@ -44,12 +44,12 @@ public class GridDrawer : MonoBehaviour
         {
             for (int z = 0; z < height; z++)
             {
-                // ´´½¨µ¥Ôª¸ñ GameObject
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ GameObject
                 GameObject cell = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cell.transform.position = new Vector3(x * cellSize - (width * cellSize) / 2 + cellSize / 2, 0,
                     z * cellSize - (height * cellSize) / 2 + cellSize / 2);
-                cell.transform.localScale = new Vector3(cellSize, 0.1f, cellSize); // Ê¹µ¥Ôª¸ñ±âÆ½
-                cell.AddComponent<BoxCollider>(); // Ìí¼ÓÅö×²Ìå
+                cell.transform.localScale = new Vector3(cellSize, 0.1f, cellSize); // Ê¹ï¿½ï¿½Ôªï¿½ï¿½ï¿½Æ½
+                cell.AddComponent<BoxCollider>(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½
                 cell.transform.parent = this.transform;
                 cell.layer = ParentLayer;
                 cellObjects[x, z] = cell;
@@ -59,10 +59,10 @@ public class GridDrawer : MonoBehaviour
                 rank2[x * height + z] = 0;
             }
         }
-        gridCreated = true; // ±ê¼ÇÍø¸ñÒÑ´´½¨
+        gridCreated = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½ï¿½ï¿½
     }
 
-    // ·½·¨£º¸ù¾Ý¸ø¶¨µÄÎ»ÖÃ£¨x, z£©·ÃÎÊ²¢ÐÞ¸Ä¸ÃÎ»ÖÃµÄÎïÌå
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½x, zï¿½ï¿½ï¿½ï¿½ï¿½Ê²ï¿½ï¿½Þ¸Ä¸ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject GetCellObject(int x, int z)
     {
         if (x >= 0 && x < width && z >= 0 && z < height)
@@ -81,15 +81,15 @@ public class GridDrawer : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.white; // ÉèÖÃÍø¸ñÏßµÄÑÕÉ«
-        // »æÖÆË®Æ½Ïß
+        Gizmos.color = Color.white; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½É«
+        // ï¿½ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½
         for (int y = 0; y <= height; y++)
         {
             Vector3 start = new Vector3(-width * cellSize / 2, 0, y * cellSize - height * cellSize / 2);
             Vector3 end = new Vector3(width * cellSize / 2, 0, y * cellSize - height * cellSize / 2);
             Gizmos.DrawLine(start, end);
         }
-        // »æÖÆ´¹Ö±Ïß
+        // ï¿½ï¿½ï¿½Æ´ï¿½Ö±ï¿½ï¿½
         for (int x = 0; x <= width; x++)
         {
             Vector3 start = new Vector3(x * cellSize - width * cellSize / 2, 0, -height * cellSize / 2);

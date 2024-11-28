@@ -6,26 +6,26 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class Game1 : MonoBehaviour
 {
-    public GridDrawer _;
+    public GridDrawer gridDrawer;
     void Start()
     {
-        for (int i = 0; i < _.width; i++) {
-            Union1(0, i * _.height);
-            Union1(_.height - 1, (i + 1) * _.height - 1);
-            _.cellObjects[i, 0].GetComponent<Renderer>().material.color = Color.red;
-            _.cellObjects[i, _.height - 1].GetComponent<Renderer>().material.color = Color.red;
+        for (int i = 0; i < gridDrawer.width; i++) {
+            Union1(0, i * gridDrawer.height);
+            Union1(gridDrawer.height - 1, (i + 1) * gridDrawer.height - 1);
+            gridDrawer.cellObjects[i, 0].GetComponent<Renderer>().material.color = Color.red;
+            gridDrawer.cellObjects[i, gridDrawer.height - 1].GetComponent<Renderer>().material.color = Color.red;
         }
-        for (int i = 0; i < _.height; i++)
+        for (int i = 0; i < gridDrawer.height; i++)
         {
             Union2(0, i);
-            Union2((_.width - 1) * _.height, (_.width - 1) * _.height + i);
-            _.cellObjects[0, i].GetComponent<Renderer>().material.color = Color.blue;
-            _.cellObjects[_.width - 1, i].GetComponent<Renderer>().material.color = Color.blue;
+            Union2((gridDrawer.width - 1) * gridDrawer.height, (gridDrawer.width - 1) * gridDrawer.height + i);
+            gridDrawer.cellObjects[0, i].GetComponent<Renderer>().material.color = Color.blue;
+            gridDrawer.cellObjects[gridDrawer.width - 1, i].GetComponent<Renderer>().material.color = Color.blue;
         }
-        _.cellObjects[0, 0].GetComponent<Renderer>().material.color = Color.white;
-        _.cellObjects[0, _.height - 1].GetComponent<Renderer>().material.color = Color.white;
-        _.cellObjects[_.width - 1, 0].GetComponent<Renderer>().material.color = Color.white;
-        _.cellObjects[_.width - 1, _.height - 1].GetComponent<Renderer>().material.color = Color.white;
+        gridDrawer.cellObjects[0, 0].GetComponent<Renderer>().material.color = Color.white;
+        gridDrawer.cellObjects[0, gridDrawer.height - 1].GetComponent<Renderer>().material.color = Color.white;
+        gridDrawer.cellObjects[gridDrawer.width - 1, 0].GetComponent<Renderer>().material.color = Color.white;
+        gridDrawer.cellObjects[gridDrawer.width - 1, gridDrawer.height - 1].GetComponent<Renderer>().material.color = Color.white;
     }
 
     void Update()
@@ -35,86 +35,72 @@ public class Game1 : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _.boardLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, gridDrawer.boardLayer))
                 {
                 // 计算点击位置在棋盘上的坐标
                 Vector3 hitPoint = hit.point;
                 int row, column;
-                (row, column) = ToIndex(hitPoint);
+                (row, column) = ConvertPositionToGridIndex(hitPoint);
                 // 实例化棋子
-                if (!_.placedPieces[row, column])
+                if (!gridDrawer.placedPieces[row, column])
                 {
                     GameObject newPiece;
-                    Vector3 piecePosition = new Vector3((row - _.width / 2 + 0.5f) * _.cellSize, 0.0f, (column - _.height / 2 + 0.5f) * _.cellSize);
-                    if (_.round)
+                    Vector3 piecePosition = new Vector3((row - gridDrawer.width / 2 + 0.5f) * gridDrawer.cellSize, 0.0f, (column - gridDrawer.height / 2 + 0.5f) * gridDrawer.cellSize);
+                    if (gridDrawer.round)
                     {
-                        newPiece = Instantiate(_.piecePrefab1, piecePosition, Quaternion.identity);
+                        newPiece = Instantiate(gridDrawer.piecePrefab1, piecePosition, Quaternion.identity);
                         newPiece.name = $"Piece1";
-                        _.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.red;
+                        gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.red;
                     }
                     else
                     {
-                        newPiece = Instantiate(_.piecePrefab2, piecePosition, Quaternion.identity);
+                        newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
                         newPiece.name = $"Piece2";
-                        _.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
+                        gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
                     }
                     newPiece.transform.parent = this.transform;
-                    _.placedPieces[row, column] = newPiece;
-                    _.indexX = row;
-                    _.indexZ = column;
-                    _.lastPlacedPiece = newPiece;
-                    _.round = !_.round;
+                    gridDrawer.placedPieces[row, column] = newPiece;
+                    gridDrawer.indexX = row;
+                    gridDrawer.indexZ = column;
+                    gridDrawer.lastPlacedPiece = newPiece;
+                    gridDrawer.round = !gridDrawer.round;
                     ConnectSurroundingPieces(newPiece, row, column);
                 }
             }
         }
     }
-    private (int row,int column) ToIndex(Vector3 position)      //坐标转换为数组下标
+    private (int row, int column) ConvertPositionToGridIndex(Vector3 position)
     {
-        return ((int)((position.x + _.width / 2 * _.cellSize) /_.cellSize), (int)((position.z + _.height / 2 * _.cellSize) / _.cellSize));
+        return ((int)((position.x + gridDrawer.width / 2 * gridDrawer.cellSize) / gridDrawer.cellSize), 
+                (int)((position.z + gridDrawer.height / 2 * gridDrawer.cellSize) / gridDrawer.cellSize));
     }
-    private void ConnectSurroundingPieces(GameObject newpiece, int x, int z)    //连接周围的棋子
+    private void ConnectSurroundingPieces(GameObject newPiece, int x, int z)
     {
-        for (int dx = -2; dx <= 2; dx++)
+        // 预先计算可能的偏移量，避免嵌套循环
+        (int dx, int dz)[] offsets = new[]
         {
-            for (int dz = -2; dz <= 2; dz++)
-            {
-                if (Math.Abs(dx) + Math.Abs(dz) != 3) continue;
-                int newX = x + dx;
-                int newZ = z + dz;
+            (-2, 1), (-2, -1),
+            (-1, 2), (-1, -2),
+            (1, 2), (1, -2),
+            (2, 1), (2, -1)
+        };
 
-                // 确保在棋盘范围内
-                if (newX >= 0 && newX < _.width && newZ >= 0 && newZ < _.height)
-                {
-                    // 突出显示周围的棋子
-                    GameObject piece = _.placedPieces[newX,newZ];
-                    if (piece != null && piece.name == newpiece.name)
-                    {
-                        if (notBlock(x, z, newX, newZ))
-                        {
-                            Vector3 Position1 = _.placedPieces[x,z].transform.position;
-                            Vector3 Position2 = _.placedPieces[newX, newZ].transform.position;
-                            // 计算旋转，使桥梁指向两个棋子
-                            Quaternion bridgeRotation = Quaternion.LookRotation(Position1 - Position2);
-                            // 实例化桥梁模型
-                            GameObject bridge = Instantiate(_.bridgePrefab, (Position1 + Position2 + new Vector3(0, 1f, 0)) / 2, bridgeRotation * Quaternion.Euler(90, 0, 0));
-                            _.placedBridge[x,z]=bridge;
-                            _.placedBridge[newX,newZ] = bridge;
-                            if (!_.round)
-                            {
-                                Union1(x * _.height + z, newX * _.height + newZ);
-                                if (Connected1(0, _.height - 1)) Debug.Log("win1");
-                            }
-                            else
-                            {
-                                Union2(x * _.height + z, newX * _.height + newZ);
-                                if (Connected2(0, (_.width - 1) * _.height)) Debug.Log("win2");
-                            }
-                        }
-                    }
-                }
+        foreach (var (dx, dz) in offsets)
+        {
+            int newX = x + dx;
+            int newZ = z + dz;
+
+            if (IsValidPosition(newX, newZ) && 
+                gridDrawer.placedPieces[newX, newZ]?.name == newPiece.name &&
+                notBlock(x, z, newX, newZ))
+            {
+                CreateBridge(x, z, newX, newZ);
             }
         }
+    }
+    private bool IsValidPosition(int x, int z)
+    {
+        return x >= 0 && x < gridDrawer.width && z >= 0 && z < gridDrawer.height;
     }
     private bool notBlock(int x,int z,int newX,int newZ) {
         int[][] point = new int[][]
@@ -192,10 +178,10 @@ public class Game1 : MonoBehaviour
             b = first[0] * funcarray[1] + first[1] * funcarray[3];
             c = second[i, 0] * funcarray[0] + second[i, 1] * funcarray[2];
             d = second[i, 0] * funcarray[1] + second[i, 1] * funcarray[3];
-            if (x + a >= 0 && x + a < _.width && z + b >= 0 && z + b < _.height &&
-                x + a + c >= 0 && x + a + c < _.width && z + b + d >= 0 && z + b + d < _.height)
+            if (x + a >= 0 && x + a < gridDrawer.width && z + b >= 0 && z + b < gridDrawer.height &&
+                x + a + c >= 0 && x + a + c < gridDrawer.width && z + b + d >= 0 && z + b + d < gridDrawer.height)
             {
-                if (_.placedBridge[x + a, z + b] != null && _.placedBridge[x + a, z + b] == _.placedBridge[x + a + c, z + b + d]) return false;
+                if (gridDrawer.placedBridge[x + a, z + b] != null && gridDrawer.placedBridge[x + a, z + b] == gridDrawer.placedBridge[x + a + c, z + b + d]) return false;
             }
         }
         return true;
@@ -208,18 +194,18 @@ public class Game1 : MonoBehaviour
         if (rootX != rootY)
         {
             // 按秩合并
-            if (_.rank1[rootX] > _.rank1[rootY])
+            if (gridDrawer.rank1[rootX] > gridDrawer.rank1[rootY])
             {
-                _.parent1[rootY] = rootX;
+                gridDrawer.parent1[rootY] = rootX;
             }
-            else if (_.rank1[rootX] < _.rank1[rootY])
+            else if (gridDrawer.rank1[rootX] < gridDrawer.rank1[rootY])
             {
-                _.parent1[rootX] = rootY;
+                gridDrawer.parent1[rootX] = rootY;
             }
             else
             {
-                _.parent1[rootY] = rootX;
-                _.rank1[rootX]++;
+                gridDrawer.parent1[rootY] = rootX;
+                gridDrawer.rank1[rootX]++;
             }
         }
     }
@@ -231,36 +217,36 @@ public class Game1 : MonoBehaviour
         if (rootX != rootY)
         {
             // 按秩合并
-            if (_.rank2[rootX] > _.rank2[rootY])
+            if (gridDrawer.rank2[rootX] > gridDrawer.rank2[rootY])
             {
-                _.parent2[rootY] = rootX;
+                gridDrawer.parent2[rootY] = rootX;
             }
-            else if (_.rank2[rootX] < _.rank2[rootY])
+            else if (gridDrawer.rank2[rootX] < gridDrawer.rank2[rootY])
             {
-                _.parent2[rootX] = rootY;
+                gridDrawer.parent2[rootX] = rootY;
             }
             else
             {
-                _.parent2[rootY] = rootX;
-                _.rank2[rootX]++;
+                gridDrawer.parent2[rootY] = rootX;
+                gridDrawer.rank2[rootX]++;
             }
         }
     }
     private int Find1(int x)
     {
-        if (_.parent1[x] != x)
+        if (gridDrawer.parent1[x] != x)
         {
-            _.parent1[x] = Find1(_.parent1[x]);
+            gridDrawer.parent1[x] = Find1(gridDrawer.parent1[x]);
         }
-        return _.parent1[x];
+        return gridDrawer.parent1[x];
     }
     private int Find2(int x)
     {
-        if (_.parent2[x] != x)
+        if (gridDrawer.parent2[x] != x)
         {
-            _.parent2[x] = Find2(_.parent2[x]);
+            gridDrawer.parent2[x] = Find2(gridDrawer.parent2[x]);
         }
-        return _.parent2[x];
+        return gridDrawer.parent2[x];
     }
     private bool Connected1(int x, int y)
     {
@@ -269,6 +255,53 @@ public class Game1 : MonoBehaviour
     private bool Connected2(int x, int y)
     {
         return Find2(x) == Find2(y);
+    }
+    private void CreateBridge(int x1, int z1, int x2, int z2)
+    {
+        // 计算两个棋子的位置
+        Vector3 position1 = gridDrawer.placedPieces[x1, z1].transform.position;
+        Vector3 position2 = gridDrawer.placedPieces[x2, z2].transform.position;
+        
+        // 计算桥的中心位置（稍微抬高一点以避免与棋盘重叠）
+        Vector3 bridgePosition = (position1 + position2) / 2 + new Vector3(0, 0.1f, 0);
+        
+        // 计算桥的旋转角度（使桥连接两个棋子）
+        Vector3 direction = position2 - position1;
+        Quaternion bridgeRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(90, 0, 0);
+        
+        // 创建桥
+        GameObject bridge = Instantiate(gridDrawer.bridgePrefab, bridgePosition, bridgeRotation);
+        
+        // 设置桥的缩放（根据两点距离调整长度）
+        float distance = Vector3.Distance(position1, position2);
+        bridge.transform.localScale = new Vector3(2f, distance, 0.1f);
+        
+        // 设置桥的父对象
+        bridge.transform.parent = transform;
+        
+        // 在网格中记录桥的位置
+        gridDrawer.placedBridge[x1, z1] = bridge;
+        gridDrawer.placedBridge[x2, z2] = bridge;
+
+        // 更新游戏状态
+        if (!gridDrawer.round)
+        {
+            Union1(x1 * gridDrawer.height + z1, x2 * gridDrawer.height + z2);
+            // 检查玩家1是否获胜（连接上下边缘）
+            if (Connected1(0, gridDrawer.height - 1))
+            {
+                Debug.Log("玩家1（红色）获胜！");
+            }
+        }
+        else
+        {
+            Union2(x1 * gridDrawer.height + z1, x2 * gridDrawer.height + z2);
+            // 检查玩家2是否获胜（连接左右边缘）
+            if (Connected2(0, (gridDrawer.width - 1) * gridDrawer.height))
+            {
+                Debug.Log("玩家2（蓝色）获胜！");
+            }
+        }
     }
 }
 
