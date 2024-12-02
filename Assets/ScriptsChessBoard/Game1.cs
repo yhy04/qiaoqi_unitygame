@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Networking;
 public class Game1 : MonoBehaviour
 {
     public GridDrawer gridDrawer;
@@ -30,7 +31,8 @@ public class Game1 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(gridDrawer.round){
+            if (Input.GetMouseButtonDown(0))
             {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -46,18 +48,18 @@ public class Game1 : MonoBehaviour
                 {
                     GameObject newPiece;
                     Vector3 piecePosition = new Vector3((row - gridDrawer.width / 2 + 0.5f) * gridDrawer.cellSize, 0.0f, (column - gridDrawer.height / 2 + 0.5f) * gridDrawer.cellSize);
-                    if (gridDrawer.round)
-                    {
+                    //if (gridDrawer.round)
+                    //{
                         newPiece = Instantiate(gridDrawer.piecePrefab1, piecePosition, Quaternion.identity);
                         newPiece.name = $"Piece1";
                         gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.red;
-                    }
-                    else
-                    {
-                        newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
-                        newPiece.name = $"Piece2";
-                        gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
-                    }
+                    //}
+                    //else
+                    //{
+                    //    newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
+                    //    newPiece.name = $"Piece2";
+                    //    gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
+                    
                     newPiece.transform.parent = this.transform;
                     gridDrawer.placedPieces[row, column] = newPiece;
                     gridDrawer.indexX = row;
@@ -65,8 +67,13 @@ public class Game1 : MonoBehaviour
                     gridDrawer.lastPlacedPiece = newPiece;
                     gridDrawer.round = !gridDrawer.round;
                     ConnectSurroundingPieces(newPiece, row, column);
+                    }
                 }
             }
+        }
+        else {
+            StartCoroutine(SendPostRequest(gridDrawer.indexX, gridDrawer.indexZ));
+            gridDrawer.round = !gridDrawer.round;
         }
     }
     private (int row, int column) ConvertPositionToGridIndex(Vector3 position)
@@ -301,6 +308,72 @@ public class Game1 : MonoBehaviour
             {
                 Debug.Log("玩家2（蓝色）获胜！");
             }
+        }
+    }
+
+    public IEnumerator SendPostRequest(int x, int y)
+    {
+        // 创建一个JSON对象
+        string jsonData = JsonUtility.ToJson(new { x = x, y = y });
+
+        // 创建一个UnityWebRequest
+        using (UnityWebRequest www = new UnityWebRequest("http://127.0.0.1:5000/api/endpoint", "POST"))
+        {
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
+            www.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            // 发送请求并等待响应
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                // 解析返回的JSON数据
+                string responseText = www.downloadHandler.text;
+                ResponseData responseData = JsonUtility.FromJson<ResponseData>(responseText);
+
+                // 更新 GridDrawer 中的值并放置棋子
+                PlacePieceAtPosition(responseData.a, responseData.b);
+            }
+            else
+            {
+                Debug.LogError($"Error: {www.error}");
+            }
+        }
+    }
+
+    // 定义一个类来解析返回的JSON数据
+    [System.Serializable]
+    public class ResponseData
+    {
+        public int a;
+        public int b;
+    }
+
+    // 添加新的辅助方法来放置棋子
+    private void PlacePieceAtPosition(int row, int column)
+    {
+        if (!gridDrawer.placedPieces[row, column])
+        {
+            GameObject newPiece;
+            Vector3 piecePosition = new Vector3(
+                (row - gridDrawer.width / 2 + 0.5f) * gridDrawer.cellSize, 
+                0.0f, 
+                (column - gridDrawer.height / 2 + 0.5f) * gridDrawer.cellSize
+            );
+
+            newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
+            newPiece.name = "Piece2";
+            gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
+            
+            newPiece.transform.parent = this.transform;
+            gridDrawer.placedPieces[row, column] = newPiece;
+            gridDrawer.indexX = row;
+            gridDrawer.indexZ = column;
+            gridDrawer.lastPlacedPiece = newPiece;
+            gridDrawer.round = !gridDrawer.round;
+            ConnectSurroundingPieces(newPiece, row, column);
         }
     }
 }

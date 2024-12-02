@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Unity Projects\\qiaoqi_unitygame\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|d:\\unity projects\\qiaoqi_unitygame\\assets\\scriptschessboard\\basegame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E356059-73F4-9424-D128-26F92AF089AB}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptschessboard\\basegame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -51,6 +55,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Game1.cs",
+              "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\Game1.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\Game1.cs",
+              "ToolTip": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\Game1.cs",
+              "RelativeToolTip": "Assets\\ScriptsChessBoard\\Game1.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAhwGAAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T09:41:37.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "BaseGame.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\BaseGame.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\BaseGame.cs",
@@ -63,7 +80,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "movement.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\movement.cs",
               "RelativeDocumentMoniker": "Assets\\movement.cs",
@@ -74,7 +91,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "start.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsSCene\\start.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptsSCene\\start.cs",
@@ -86,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "LineTheBoard.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\LineTheBoard.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\LineTheBoard.cs",
@@ -98,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlaceChessman.cs",
               "DocumentMoniker": "D:\\Unity Projects\\qiaoqi_unitygame\\Assets\\ScriptsChessBoard\\PlaceChessman.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptsChessBoard\\PlaceChessman.cs",
