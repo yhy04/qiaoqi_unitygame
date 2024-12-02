@@ -8,8 +8,11 @@ using UnityEngine.Networking;
 public class Game1 : MonoBehaviour
 {
     public GridDrawer gridDrawer;
+    private bool isRequestInProgress = false;
     void Start()
     {
+        StartCoroutine(SendResetRequest());
+
         for (int i = 0; i < gridDrawer.width; i++) {
             Union1(0, i * gridDrawer.height);
             Union1(gridDrawer.height - 1, (i + 1) * gridDrawer.height - 1);
@@ -31,49 +34,54 @@ public class Game1 : MonoBehaviour
 
     void Update()
     {
-        if(gridDrawer.round){
+        if (gridDrawer.round)
+        {
             if (Input.GetMouseButtonDown(0))
             {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, gridDrawer.boardLayer))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, gridDrawer.boardLayer))
                 {
-                // 计算点击位置在棋盘上的坐标
-                Vector3 hitPoint = hit.point;
-                int row, column;
-                (row, column) = ConvertPositionToGridIndex(hitPoint);
-                // 实例化棋子
-                if (!gridDrawer.placedPieces[row, column])
-                {
-                    GameObject newPiece;
-                    Vector3 piecePosition = new Vector3((row - gridDrawer.width / 2 + 0.5f) * gridDrawer.cellSize, 0.0f, (column - gridDrawer.height / 2 + 0.5f) * gridDrawer.cellSize);
-                    //if (gridDrawer.round)
-                    //{
-                        newPiece = Instantiate(gridDrawer.piecePrefab1, piecePosition, Quaternion.identity);
-                        newPiece.name = $"Piece1";
-                        gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.red;
-                    //}
-                    //else
-                    //{
-                    //    newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
-                    //    newPiece.name = $"Piece2";
-                    //    gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
-                    
-                    newPiece.transform.parent = this.transform;
-                    gridDrawer.placedPieces[row, column] = newPiece;
-                    gridDrawer.indexX = row;
-                    gridDrawer.indexZ = column;
-                    gridDrawer.lastPlacedPiece = newPiece;
-                    gridDrawer.round = !gridDrawer.round;
-                    ConnectSurroundingPieces(newPiece, row, column);
+                    // 计算点击位置在棋盘上的坐标
+                    Vector3 hitPoint = hit.point;
+                    int row, column;
+                    (row, column) = ConvertPositionToGridIndex(hitPoint);
+                    if(row==0||row==gridDrawer.width-1)return;
+                    // 实例化棋子
+                    if (!gridDrawer.placedPieces[row, column])
+                    {
+                        GameObject newPiece;
+                        Vector3 piecePosition = new Vector3((row - gridDrawer.width / 2 + 0.5f) * gridDrawer.cellSize, 0.0f, (column - gridDrawer.height / 2 + 0.5f) * gridDrawer.cellSize);
+                        //if (gridDrawer.round)
+                        //{
+                            newPiece = Instantiate(gridDrawer.piecePrefab1, piecePosition, Quaternion.identity);
+                            newPiece.name = $"Piece1";
+                            gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.red;
+                        //}
+                        //else
+                        //{
+                        //    newPiece = Instantiate(gridDrawer.piecePrefab2, piecePosition, Quaternion.identity);
+                        //    newPiece.name = $"Piece2";
+                        //    gridDrawer.cellObjects[row, column].GetComponent<Renderer>().material.color = Color.blue;
+                        
+                        newPiece.transform.parent = this.transform;
+                        gridDrawer.placedPieces[row, column] = newPiece;
+                        gridDrawer.indexX = row;
+                        gridDrawer.indexZ = column;
+                        gridDrawer.lastPlacedPiece = newPiece;
+                        gridDrawer.round = !gridDrawer.round;
+                        ConnectSurroundingPieces(newPiece, row, column);
+                        isRequestInProgress = true;
                     }
                 }
             }
         }
-        else {
+        else if (isRequestInProgress)
+        {
+            isRequestInProgress = false;
+            //gridDrawer.round = !gridDrawer.round;//在发送请求后写过了
             StartCoroutine(SendPostRequest(gridDrawer.indexX, gridDrawer.indexZ));
-            gridDrawer.round = !gridDrawer.round;
         }
     }
     private (int row, int column) ConvertPositionToGridIndex(Vector3 position)
@@ -311,44 +319,61 @@ public class Game1 : MonoBehaviour
         }
     }
 
+    [System.Serializable]
+    public class MoveResponse
+    {
+        public string player_move;
+        public string bot_move;
+    }
+
+    // 添加一个新的类用于序列化移动数据
+    [System.Serializable]
+    public class MoveData
+    {
+        public string move;
+    }
+
     public IEnumerator SendPostRequest(int x, int y)
     {
-        // 创建一个JSON对象
-        string jsonData = JsonUtility.ToJson(new { x = x, y = y });
+        string move = $"{(char)('a' + x)}{y + 1}";
+        // 使用新的 MoveData 类来创建 JSON
+        var moveData = new MoveData { move = move };
+        string jsonData = JsonUtility.ToJson(moveData);
+        
+        Debug.Log($"发送移动请求: {jsonData}");
 
-        // 创建一个UnityWebRequest
-        using (UnityWebRequest www = new UnityWebRequest("http://127.0.0.1:5000/api/endpoint", "POST"))
+        using (UnityWebRequest www = new UnityWebRequest("http://118.89.133.59:5740/move", "POST"))
         {
             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData);
             www.uploadHandler = new UploadHandlerRaw(jsonToSend);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
 
-            // 发送请求并等待响应
             yield return www.SendWebRequest();
 
             if (www.result == UnityWebRequest.Result.Success)
             {
-                // 解析返回的JSON数据
                 string responseText = www.downloadHandler.text;
-                ResponseData responseData = JsonUtility.FromJson<ResponseData>(responseText);
-
-                // 更新 GridDrawer 中的值并放置棋子
-                PlacePieceAtPosition(responseData.a, responseData.b);
+                // 打印收到的响应
+                Debug.Log($"收到服务器响应: {responseText}");
+                
+                MoveResponse response = JsonUtility.FromJson<MoveResponse>(responseText);
+                
+                // 解析机器人的移动位置
+                if (!string.IsNullOrEmpty(response.bot_move))
+                {
+                    int botX = response.bot_move[0] - 'a';
+                    int botY = int.Parse(response.bot_move.Substring(1)) - 1;
+                    
+                    // 放置机器人的棋子
+                    PlacePieceAtPosition(botX, botY);
+                }
             }
             else
             {
                 Debug.LogError($"Error: {www.error}");
             }
         }
-    }
-
-    // 定义一个类来解析返回的JSON数据
-    [System.Serializable]
-    public class ResponseData
-    {
-        public int a;
-        public int b;
     }
 
     // 添加新的辅助方法来放置棋子
@@ -374,6 +399,23 @@ public class Game1 : MonoBehaviour
             gridDrawer.lastPlacedPiece = newPiece;
             gridDrawer.round = !gridDrawer.round;
             ConnectSurroundingPieces(newPiece, row, column);
+        }
+    }
+
+    private IEnumerator SendResetRequest()
+    {
+        using (UnityWebRequest www = UnityWebRequest.PostWwwForm("http://118.89.133.59:5740/reset", ""))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("重置请求成功");
+            }
+            else
+            {
+                Debug.LogError($"重置请求失败: {www.error}");
+            }
         }
     }
 }
